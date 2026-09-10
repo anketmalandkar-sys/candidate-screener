@@ -1,0 +1,21 @@
+# {$SITE_ADDRESS} is the public origin.
+#   unset            -> ":80", plain HTTP; TLS is terminated upstream
+#                       (Tailscale Funnel, a load balancer, etc.)
+#   https://<host>   -> Caddy fetches and renews a Let's Encrypt cert itself
+#                       (e.g. https://34-28-1-2.sslip.io on a cloud VM)
+# One origin: /api/* goes to the FastAPI container, everything else is the
+# built SPA with HTML5-history fallback to index.html.
+{$SITE_ADDRESS::80} {
+	encode gzip
+
+	@api path /api/*
+	handle @api {
+		reverse_proxy backend:8000
+	}
+
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+	}
+}

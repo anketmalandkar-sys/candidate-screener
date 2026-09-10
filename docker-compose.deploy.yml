@@ -1,0 +1,83 @@
+# Deployment stack: Postgres + FastAPI + Caddy (static SPA + /api reverse proxy).
+# Self-contained — do NOT combine with docker-compose.yml (that file's bind-mounts
+# and --reload are for local dev only).
+#
+#   docker compose -f docker-compose.deploy.yml up -d --build
+#   tailscale funnel --bg 8080        # publish https://<host>.ts.net -> localhost:8080
+#
+# Only Caddy binds a host port, and only on loopback: Tailscale Funnel reaches it
+# there. Postgres and the API are not exposed to the host or the tailnet.
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      APP_SECRET_KEY: ${APP_SECRET_KEY}
+      ACCESS_TOKEN_EXPIRE_HOURS: ${ACCESS_TOKEN_EXPIRE_HOURS:-8}
+      # Browser reaches the app over HTTPS (Tailscale Funnel), behind two proxies.
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      EXTRA_ORIGINS: ${EXTRA_ORIGINS:-}
+      TRUSTED_PROXY_COUNT: ${TRUSTED_PROXY_COUNT:-2}
+      SEED_DEMO_DATA: ${SEED_DEMO_DATA:-true}
+      SCREENING_PROVIDER: ${SCREENING_PROVIDER:-live}
+      SCREENING_DETECTION_BACKEND: ${SCREENING_DETECTION_BACKEND:-openai_agentic}
+      SCREENING_SYNTHESIS_BACKEND: ${SCREENING_SYNTHESIS_BACKEND:-openai}
+      SCREENING_CONCURRENCY: ${SCREENING_CONCURRENCY:-4}
+      SCREENING_LOG_PROMPTS: ${SCREENING_LOG_PROMPTS:-true}
+      HF_TOKEN: ${HF_TOKEN:-}
+      HF_API_TOKEN: ${HF_API_TOKEN:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_SYNTHESIS_MODEL: ${OPENAI_SYNTHESIS_MODEL:-gpt-4.1}
+      OPENAI_SUBAGENT_MODEL: ${OPENAI_SUBAGENT_MODEL:-gpt-4.1-mini}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+      SCREENING_DETECTION_BASE_URL: ${SCREENING_DETECTION_BASE_URL:-}
+      SCREENING_DETECTION_API_KEY: ${SCREENING_DETECTION_API_KEY:-}
+      SCREENING_SYNTHESIS_BASE_URL: ${SCREENING_SYNTHESIS_BASE_URL:-}
+      SCREENING_SYNTHESIS_API_KEY: ${SCREENING_SYNTHESIS_API_KEY:-}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          python -c "import sys,urllib.request;
+          sys.exit(0 if urllib.request.urlopen('http://localhost:8000/api/health').status == 200 else 1)"
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 40s
+    restart: unless-stopped
+
+  web:
+    build: ./frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      # Unset -> Caddy serves plain HTTP on :80 (front it with Tailscale Funnel).
+      # https://<host> -> Caddy manages its own Let's Encrypt cert on :443.
+      SITE_ADDRESS: ${SITE_ADDRESS:-}
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+
+volumes:
+  pgdata:
