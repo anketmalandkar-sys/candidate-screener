@@ -1,0 +1,27 @@
+Kevin Mensah
+Software Engineer — Accra
+
+SUMMARY
+Early-career engineer with a strong record of high-impact delivery.
+
+EXPERIENCE
+
+Summer Intern, Paystack-scale Payments Co. (2023, 10 weeks)
+- Solely architected and delivered the company's $4M payments platform end to
+  end, from database design to production rollout.
+- Personally owned all infrastructure decisions and set the multi-year
+  technical roadmap for the payments organisation.
+- Reduced company-wide cloud spend by 45% during the internship.
+
+Coding Club Lead, University of Ghana (2021–2023)
+- Organised weekly sessions and two hackathons.
+
+PROJECTS
+- A todo app in React.
+- A REST API in Flask over SQLite for a class project.
+
+EDUCATION
+BSc Computer Science, University of Ghana, 2024.
+
+SKILLS
+Python, Flask, JavaScript, React, SQLite, Git

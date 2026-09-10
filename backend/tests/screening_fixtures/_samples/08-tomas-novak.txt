@@ -1,0 +1,20 @@
+Tomas Novak
+Engineering Manager — Prague
+
+SUMMARY
+Twelve years in engineering, the last five managing teams of 6–15. Still review
+code weekly, but I have not shipped a production feature myself since 2021.
+
+EXPERIENCE
+
+Engineering Manager, Slaviq (2021–present)
+- Manage three backend teams. Hiring, performance, roadmap, incident review.
+- Our stack is Python on Kubernetes with PostgreSQL; I set the technical
+  direction but the team writes it.
+
+Tech Lead, Slaviq (2019–2021)
+- Led the migration from a Rails monolith to Python services.
+- Introduced Docker and our first CI pipeline.
+
+SKILLS
+Engineering management, hiring, Python, PostgreSQL, Kubernetes, Docker

@@ -1,0 +1,64 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      APP_SECRET_KEY: ${APP_SECRET_KEY}
+      ACCESS_TOKEN_EXPIRE_HOURS: ${ACCESS_TOKEN_EXPIRE_HOURS:-8}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      EXTRA_ORIGINS: ${EXTRA_ORIGINS:-}
+      TRUSTED_PROXY_COUNT: ${TRUSTED_PROXY_COUNT:-0}
+      SEED_DEMO_DATA: ${SEED_DEMO_DATA:-true}
+      SCREENING_PROVIDER: ${SCREENING_PROVIDER:-live}
+      SCREENING_DETECTION_BACKEND: ${SCREENING_DETECTION_BACKEND:-openai_agentic}
+      SCREENING_SYNTHESIS_BACKEND: ${SCREENING_SYNTHESIS_BACKEND:-openai}
+      SCREENING_CONCURRENCY: ${SCREENING_CONCURRENCY:-4}
+      SCREENING_LOG_PROMPTS: ${SCREENING_LOG_PROMPTS:-true}
+      HF_TOKEN: ${HF_TOKEN:-}
+      HF_API_TOKEN: ${HF_API_TOKEN:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_SYNTHESIS_MODEL: ${OPENAI_SYNTHESIS_MODEL:-gpt-4.1}
+      OPENAI_SUBAGENT_MODEL: ${OPENAI_SUBAGENT_MODEL:-gpt-4.1-mini}
+      # OpenAI-compatible endpoint selection. resolve_endpoint() treats an empty
+      # value as unset (base_url falls back to https://api.openai.com/v1, api_key
+      # to None), so passing these blank through is safe. See docs/llm-backends.md.
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+      SCREENING_DETECTION_BASE_URL: ${SCREENING_DETECTION_BASE_URL:-}
+      SCREENING_DETECTION_API_KEY: ${SCREENING_DETECTION_API_KEY:-}
+      SCREENING_SYNTHESIS_BASE_URL: ${SCREENING_SYNTHESIS_BASE_URL:-}
+      SCREENING_SYNTHESIS_API_KEY: ${SCREENING_SYNTHESIS_API_KEY:-}
+      # HF_BILL_TO / HF_SUBAGENT_CHAT_MODEL stay unlisted; set them in .env and
+      # add the line here only when you need them.
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      # Bind-mounted so edits are picked up by --reload during development
+      - ./backend/app:/srv/app
+      - ./backend/alembic:/srv/alembic
+      - ./backend/tests:/srv/tests
+      # So test-config edits land without an image rebuild. conftest.py points
+      # the suite at an isolated *_test database — it never touches dev data.
+      - ./backend/conftest.py:/srv/conftest.py
+      # ruff / mypy / pytest config, so `docker compose exec backend pytest`
+      # (and lint/type-check) use the same settings as local + CI.
+      - ./backend/pyproject.toml:/srv/pyproject.toml
+
+volumes:
+  pgdata:

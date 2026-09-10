@@ -1,0 +1,19 @@
+Lena Fischer
+Platform Engineer — Berlin
+
+SUMMARY
+Infrastructure specialist. I make other engineers' deploys boring.
+
+EXPERIENCE
+
+Platform Engineer, Handelsbank (2020–present)
+- Own the Kubernetes platform: 12 clusters, ~400 services.
+- All infrastructure defined in Terraform; wrote the module library.
+- Built the Docker base images and the CI pipeline that publishes them.
+- Occasional Python for operational tooling and glue scripts.
+
+Systems Administrator, Netbau (2017–2020)
+- Linux fleet management, Ansible, some Postgres administration.
+
+SKILLS
+Kubernetes, Terraform, Docker, AWS, Linux, Ansible, Python (scripting), PostgreSQL (ops)

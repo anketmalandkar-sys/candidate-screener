@@ -1,0 +1,27 @@
+Arne Solberg
+Principal Backend Engineer — Trondheim
+
+SUMMARY
+Principal Engineer since 2016. Deep experience in payments and ledger systems,
+mostly Python and PostgreSQL.
+
+EXPERIENCE
+
+Principal Engineer, Nordkapp Financial (2019–present)
+- Own the settlement platform end to end: Python, PostgreSQL, Kubernetes.
+- Redesigned the ledger partitioning; month-end close went from hours to
+  minutes.
+
+Senior Engineer, Vestland Systems (2021–2019)
+- Built the reconciliation service in Python.
+- Introduced Docker and the first CI pipeline.
+
+Backend Engineer, Fjordkraft Digital (2013–2016)
+- Python and Flask services for a billing product.
+- REST APIs for internal consumers.
+
+EDUCATION
+BSc Computer Science, NTNU, 2020.
+
+SKILLS
+Python, PostgreSQL, Kubernetes, Docker, Flask, REST APIs

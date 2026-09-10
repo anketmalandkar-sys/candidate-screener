@@ -1,0 +1,19 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+psycopg[binary]==3.2.3
+alembic==1.14.0
+pydantic==2.10.4
+pydantic-settings==2.7.0
+email-validator==2.2.0
+python-multipart==0.0.20
+argon2-cffi==23.1.0
+pyjwt==2.10.1
+pypdf==5.1.0
+python-docx==1.1.2
+
+# Screening — detection tier (HF Inference) + synthesis tier (OpenAI).
+# huggingface_hub ships inference in core (no extra). Both are only imported
+# when SCREENING_PROVIDER=live; tests run in stub mode and touch neither.
+huggingface_hub==0.34.4
+openai==1.59.6

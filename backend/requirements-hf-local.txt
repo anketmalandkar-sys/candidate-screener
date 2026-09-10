@@ -1,0 +1,10 @@
+# Optional: fully-local detection tier (SCREENING_DETECTION_BACKEND=hf_local).
+# Not in the base image — install on top of requirements.txt when you want the
+# prompt-injection classifier / NLI / embeddings to run on the box instead of
+# Hugging Face Inference.
+#
+#   pip install -r requirements.txt -r requirements-hf-local.txt
+#
+transformers==4.48.0
+torch==2.5.1
+sentence-transformers==3.3.1

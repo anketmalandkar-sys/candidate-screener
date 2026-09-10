@@ -1,0 +1,25 @@
+Victor Almeida
+Staff Backend Engineer — Lisbon
+
+SUMMARY
+12+ years building backend systems in Python. I lead large technical efforts and
+still write production code every week.
+
+EXPERIENCE
+
+Staff Engineer, Bellwether (Jun 2021 – present)
+- Own the payments platform: Python, PostgreSQL, Kubernetes.
+- Led a team of 25 engineers through the migration to event-driven settlement.
+- Set the partitioning and isolation-level strategy for the ledger.
+
+Senior Engineer, Auric Systems (Jan 2019 – Mar 2023)
+- Full-time. Built the billing service in Python and Django.
+- Designed the PostgreSQL schema and the reconciliation jobs.
+- Introduced Docker and the first CI pipeline.
+
+Backend Engineer, Cortez Digital (2016 – 2019)
+- Python and Flask services for a booking product.
+- REST APIs for mobile clients; a lot of SQL work.
+
+SKILLS
+Python, PostgreSQL, Django, Flask, Docker, Kubernetes, REST APIs

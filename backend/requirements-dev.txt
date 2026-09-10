@@ -1,0 +1,15 @@
+# Dev / test tooling. Not installed in the Docker image.
+#
+#   pip install -r requirements.txt -r requirements-dev.txt
+#
+# The container and CI run Python 3.12 with these exact pins; a newer pytest in
+# your global environment is fine for local runs.
+
+-r requirements.txt
+
+pytest==8.3.4
+httpx==0.28.1
+ruff==0.15.13
+mypy==1.14.1
+pre-commit==4.0.1
+reportlab==5.0.1   # samples/screening/generate.py (test-résumé PDFs)

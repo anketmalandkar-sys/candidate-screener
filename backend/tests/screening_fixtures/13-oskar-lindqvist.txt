@@ -1,0 +1,47 @@
+Oskar Lindqvist
+Software Engineer (Contract) — Gothenburg
+
+SUMMARY
+I was a structural engineer for six years (2014–2020) and moved into software in
+2020 after finishing a part-time conversion diploma. Since then I work as a
+contractor, mostly Ruby and Python, mostly backend. My English is my third
+language, so I keep my writing plain.
+
+AVAILABILITY
+Available from March 2026. Authorised to work in the EU.
+
+EXPERIENCE (contract, most recent first)
+
+Contract, Kvadrat (Jun 2022 – Nov 2022)
+- Migrated a legacy Rails application to a service architecture (team of 3,
+  9-month engagement handed over early). Ruby, Postgres, Sidekiq.
+- Wrote the deployment pipeline in GitHub Actions.
+
+Contract, Handelsbanken (Feb 2022 – Jul 2022)
+- Migrated a legacy Rails application to a service architecture; cut deploy time
+  from 40 min to 6. Ruby, Postgres, a small amount of Kotlin at the edges.
+- Paired with their platform team on a Kubernetes rollout.
+
+Contract, Nordval (Sep 2021 – Feb 2022)
+- Python data-loading service feeding a reporting warehouse. Airflow, Postgres.
+
+Contract, Trippus (May 2021 – Aug 2021)
+- Migrated a legacy Rails application to a service architecture for an events
+  product. Ruby, MySQL. Small team, tight timeline.
+
+Contract, Bonliva (Jan 2021 – Apr 2021)
+- Bug-fixing and test coverage on a Django service. Python, Postgres.
+
+Contract, Skira (Aug 2020 – Dec 2020)
+- First software contract. Python scripting and report automation.
+
+EARLIER CAREER
+Structural Engineer, Sweco (2016–2020) and Tyréns (2014–2016). Reinforced
+concrete design, site inspection, load modelling.
+
+EDUCATION
+Conversion Diploma in Software Development, part-time (2019–2020).
+MSc Structural Engineering, Chalmers (2014).
+
+SKILLS
+Ruby, Rails, Python, PostgreSQL, MySQL, Docker, GitHub Actions, Airflow

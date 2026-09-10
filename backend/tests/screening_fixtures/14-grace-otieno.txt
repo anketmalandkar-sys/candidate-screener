@@ -1,0 +1,24 @@
+Grace Otieno
+Backend Engineer — Nairobi
+
+SUMMARY
+Six years of Python backend work in fintech. I own services end to end and like
+being close to the data model.
+
+EXPERIENCE
+
+Backend Engineer, Asili Pay (2020–present)
+- Python (FastAPI) services for disbursements; PostgreSQL for the ledger.
+- Built the double-entry reconciliation job and its alerting.
+- Deploys in Docker on a managed Kubernetes cluster.
+- Designed and documented the partner REST API; nine integrators on it.
+
+Junior Developer, Kesho Labs (2017–2020)
+- Full-time. Django and PostgreSQL for an SME accounting product.
+- Wrote the CSV import pipeline and a lot of the test suite.
+
+EDUCATION
+BSc Computer Science, University of Nairobi, 2015–2019.
+
+SKILLS
+Python, FastAPI, Django, PostgreSQL, Docker, Kubernetes, REST APIs, pytest

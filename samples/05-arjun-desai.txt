@@ -1,0 +1,18 @@
+Arjun Desai
+Data Engineer — Pune
+
+SUMMARY
+Pipelines, warehouses, and the occasional API in front of them.
+
+EXPERIENCE
+
+Data Engineer, Meridian Analytics (2021–present)
+- Python and Airflow for batch pipelines feeding a Postgres warehouse.
+- Containerised every job with Docker; jobs run on a shared K8s cluster.
+- Exposed aggregate data through a small REST API in FastAPI.
+
+Analyst, Meridian Analytics (2019–2021)
+- SQL, dbt, and a lot of stakeholder wrangling.
+
+SKILLS
+Python, SQL, PostgreSQL, Airflow, dbt, Docker, K8s, FastAPI

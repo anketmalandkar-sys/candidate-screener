@@ -1,0 +1,19 @@
+James Osei
+Backend Engineer — Manchester
+
+SUMMARY
+Four years of Python services work, mostly in logistics.
+
+EXPERIENCE
+
+Backend Engineer, RouteWise (2022–present)
+- Python and Django services for route optimisation.
+- Postgres for everything transactional; wrote the migration tooling the team uses.
+- Everything ships in Docker via GitLab CI.
+- Designed the public REST API for our partner integrations.
+
+Junior Developer, Northgate Systems (2020–2022)
+- Maintained a Django monolith; a lot of SQL tuning.
+
+SKILLS
+Python, Django, PostgreSQL, Docker, REST APIs, SQL

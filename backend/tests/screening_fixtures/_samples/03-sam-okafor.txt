@@ -1,0 +1,19 @@
+Sam Okafor
+Frontend Engineer — Lagos
+
+SUMMARY
+Five years building product UI. Strong design sensibility, comfortable owning a
+feature end to end in the browser.
+
+EXPERIENCE
+
+Senior Frontend Engineer, Mosaic (2021–present)
+- React and TypeScript across a large design system.
+- Close collaboration with design; owns the Figma-to-code workflow.
+- Some Node.js for BFF endpoints.
+
+Frontend Developer, Kite (2019–2021)
+- Vue and JavaScript. Rebuilt the checkout flow, +12% conversion.
+
+SKILLS
+React, TypeScript, JavaScript, CSS, Node.js, Figma, Vue

@@ -1,0 +1,34 @@
+Priyanka Rao
+Backend Engineer — Hyderabad
+
+SUMMARY
+Eight years of backend engineering across e-commerce, health tech, logistics,
+travel, and adtech. A track record of measurable impact everywhere I have been.
+
+EXPERIENCE
+
+Backend Engineer, Vantage Commerce (2022–present)
+- Spearheaded initiatives that improved system performance by 40%.
+- Reduced operational costs by 30% through process optimisation.
+- Led a cross-functional team to deliver a flagship project ahead of schedule.
+
+Backend Engineer, Medipoint (2020–2022)
+- Spearheaded initiatives that improved system performance by 40%.
+- Reduced operational costs by 30% through process optimisation.
+- Led a cross-functional team to deliver a flagship project ahead of schedule.
+
+Backend Engineer, HaulLine Logistics (2019–2020)
+- Spearheaded initiatives that improved system performance by 40%.
+- Led a cross-functional team to deliver a flagship project ahead of schedule.
+
+Backend Engineer, Voyanta Travel (2017–2019)
+- Spearheaded initiatives that improved system performance by 40%.
+- Reduced operational costs by 30% through process optimisation.
+- Led a cross-functional team to deliver a flagship project ahead of schedule.
+
+Backend Engineer, AdMesh (2016–2017)
+- Reduced operational costs by 30% through process optimisation.
+- Led a cross-functional team to deliver a flagship project ahead of schedule.
+
+SKILLS
+Python, Java, PostgreSQL, MySQL, Docker, Kubernetes, REST APIs, Kafka

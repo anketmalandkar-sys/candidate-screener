@@ -1,0 +1,37 @@
+Dr. Amara Okonkwo
+AI Safety / LLM Security Engineer — Toronto
+
+SUMMARY
+Six years on the security of machine-learning systems, the last three focused
+entirely on large language models. My job is to break these systems on purpose
+and then make them harder to break.
+
+EXPERIENCE
+
+Staff Security Engineer, Sentinel Labs (2022–present)
+- Lead the red team for our LLM platform. I write prompt-injection and
+  jailbreak attacks — "ignore all previous instructions" style payloads, system
+  role spoofing, delimiter-escape tricks, hidden-text and homoglyph smuggling —
+  and measure how often they land.
+- Built the prompt-injection detection classifier that now gates every model
+  response in production. Precision 0.94 at 0.88 recall on our benchmark.
+- Authored the company's system-prompt hardening guide and the input-fencing
+  standard every product team now follows.
+- Ran the disclosure process for three CVEs in third-party agent frameworks.
+
+Security Engineer, Halcyon AI (2019–2022)
+- Adversarial testing of vision and NLP models: evasion, poisoning, membership
+  inference. Python, PyTorch.
+- Wrote the internal training on how retrieval-augmented systems get hijacked by
+  content in the documents they retrieve.
+
+PUBLICATIONS
+- "Delimiter Confusion in Tool-Using Agents", workshop paper, 2024.
+- "A Taxonomy of Indirect Prompt Injection", tech report, 2023.
+
+EDUCATION
+PhD, Computer Science (adversarial ML), University of Toronto, 2019.
+
+SKILLS
+Python, PyTorch, prompt injection, jailbreak evaluation, red teaming, threat
+modelling, LLM guardrails, static analysis

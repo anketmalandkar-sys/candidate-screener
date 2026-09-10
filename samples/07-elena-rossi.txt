@@ -1,0 +1,21 @@
+Elena Rossi
+Graduate Software Engineer — Milan
+
+SUMMARY
+Recent CS graduate looking for a first backend role.
+
+EDUCATION
+MSc Computer Science, Politecnico di Milano (2024)
+Thesis: query optimisation in distributed databases.
+
+PROJECTS
+- Final-year project in Python: a small REST API over a PostgreSQL database,
+  packaged with Docker for the demo.
+- Contributed two bug fixes to an open-source Python HTTP client.
+
+INTERNSHIP
+Software Intern, Bracco Digital (summer 2023)
+- Wrote unit tests for a Java service. Shadowed the platform team.
+
+SKILLS
+Python, PostgreSQL, Docker, Java (coursework), Git

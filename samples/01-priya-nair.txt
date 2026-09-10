@@ -1,0 +1,23 @@
+Priya Nair
+Senior Backend Engineer — Bengaluru
+
+SUMMARY
+Six years building payment and billing systems in Python. Comfortable owning a
+service from schema design through to on-call.
+
+EXPERIENCE
+
+Staff Engineer, Ledgerly (2021–present)
+- Rebuilt the double-entry ledger in Python (FastAPI), handling ~4M postings/day.
+- Designed the PostgreSQL schema behind it, including the partitioning strategy
+  that took month-end close from 40 minutes to under 3.
+- Containerised the whole estate with Docker; migrated deploys onto Kubernetes
+  and wrote the Helm charts the rest of the org now copies.
+- Managed all cloud infrastructure as code in Terraform across three AWS accounts.
+
+Backend Engineer, Payflow (2018–2021)
+- Built and documented REST APIs consumed by 30+ internal teams.
+- Introduced integration testing with pytest; raised coverage from 20% to 80%.
+
+SKILLS
+Python, PostgreSQL, Docker, Kubernetes, Terraform, AWS, REST APIs, pytest

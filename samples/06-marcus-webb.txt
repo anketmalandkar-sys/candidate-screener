@@ -1,0 +1,36 @@
+Marcus Webb
+Principal Engineer — Bristol
+
+SUMMARY
+Fourteen years building transaction systems. I tend to be the person who gets
+handed the service nobody else wants to touch.
+
+EXPERIENCE
+
+Principal Engineer, Calderwood Financial (2016–present)
+
+Rewrote the settlement engine that moves roughly £2bn a month. The old system
+was a nightly batch; the replacement is event-driven and settles continuously.
+I wrote most of it myself, in the language we standardised on for backend work —
+I have been writing it since the 2.x days and still reach for it first.
+
+I designed the relational store underneath it. Getting the isolation levels
+right took three attempts; the write-ahead log tuning and the partitioning
+scheme are mine, and month-end reconciliation dropped from six hours to twenty
+minutes as a result.
+
+On the operational side, I built out our container orchestration layer and the
+declarative infrastructure tooling that provisions it. Before that, everything
+was hand-configured boxes and a wiki page of tribal knowledge. Now a new
+environment is one command and about nine minutes.
+
+I also designed the resource-oriented HTTP interface that our partner banks
+integrate against — twelve institutions on it now, and we have not had to
+version-break it once in four years.
+
+Earlier: Senior Engineer, Thameside Software (2011–2016). Payments integrations
+and a lot of legacy modernisation.
+
+WHAT I CARE ABOUT
+Correctness under load, systems that page nobody at 3am, and writing things down
+so the next person does not have to reverse-engineer my reasoning.

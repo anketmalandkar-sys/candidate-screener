@@ -1,0 +1,99 @@
+# Project configuration for the backend.
+#
+# Runtime dependencies still live in `requirements.txt` (that is what the Docker
+# image installs); dev/test-only tools live in `requirements-dev.txt`. This file
+# is the home for tool configuration — ruff, mypy, pytest.
+
+[project]
+name = "candidate-screener-backend"
+version = "1.0.0"
+description = "FastAPI backend for the Candidate Screener HR tool."
+requires-python = ">=3.12"
+
+# ---------------------------------------------------------------------------
+# ruff — linter + formatter. Run `ruff check` and `ruff format` from backend/.
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+# E/F    = pycodestyle + pyflakes (the defaults)
+# I      = import sorting (replaces isort)
+# B      = bugbear (likely bugs)
+# C4     = flake8-comprehensions
+# UP     = pyupgrade (modern syntax for our Python floor)
+# RUF100 = flag `# noqa` comments that no longer suppress anything
+select = ["E", "F", "I", "B", "C4", "UP", "RUF100"]
+ignore = [
+    # SQLAlchemy resolves `Mapped["User"]` forward references from the string,
+    # so those annotations must stay quoted.
+    "UP037",
+    # `ruff format` already wraps every line it safely can; what is left is long
+    # string literals (regexes, prompt text, canned messages) that read worse
+    # when split. The formatter, not the linter, owns line length here.
+    "E501",
+    # PEP 695 generic syntax (`class Page[T]`) — a cosmetic migration we are not
+    # taking on in this pass; the `Generic[T]` form is still correct.
+    "UP046",
+    "UP047",
+]
+
+[tool.ruff.lint.flake8-bugbear]
+# FastAPI's dependency-injection markers are called in argument defaults on
+# purpose; that is the framework's design, not a mutable-default bug.
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.Query",
+    "fastapi.Path",
+    "fastapi.Body",
+    "fastapi.Cookie",
+    "fastapi.Form",
+    "fastapi.File",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Test helpers use `dict(...)` kwargs and `%`-formatting freely; that is fine
+# in test scaffolding.
+"tests/*" = ["B011", "C408", "UP031"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+# ---------------------------------------------------------------------------
+# mypy — static type checking. Pragmatic to start: the CRUD layers (already
+# fully annotated) are checked strictly; the multi-agent screening package and
+# the seed tooling are annotated unevenly and are checked loosely for now —
+# a follow-up pass brings them up to the same bar.
+# ---------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+warn_redundant_casts = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = [
+    "app.auth.*",
+    "app.repositories.*",
+    "app.schemas.*",
+    "app.utilities.*",
+    "app.routers.*",
+    "app.models.*",
+]
+disallow_untyped_defs = true
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = ["app.screening.*", "app.seed.*", "app.services.screening"]
+ignore_errors = true
+
+# ---------------------------------------------------------------------------
+# pytest — replaces the old pytest.ini.
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "no_db: test does not touch the database (run with `pytest -m no_db`)",
+]
+filterwarnings = ["ignore::DeprecationWarning"]
