@@ -35,6 +35,12 @@ is the point.
 
 API docs are at http://localhost:8000/docs.
 
+### Deploying
+
+[`DEPLOY.md`](./DEPLOY.md) covers all three modes: local dev (above), the full
+production `docker-compose.deploy.yml` stack on your machine, and the hosted
+`$0` demo on a GCP `e2-micro` VM with secrets in GCP Secret Manager.
+
 ### Tests
 
 ```bash
