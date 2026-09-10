@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 import { api, ApiError } from './api'
+import { setUnauthorizedHandler } from './client'
 import type { User } from './types'
 
 interface AuthState {
@@ -26,6 +27,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Any 401 from here on means the session is gone — clear it so RequireAuth
+    // redirects to /login. Safe to call redundantly (already-null is a no-op).
+    setUnauthorizedHandler(() => setUser(null))
+
     // The session lives in an httpOnly cookie, so JS cannot read it directly.
     // Asking the server who we are is the only way to resolve session state.
     api
@@ -38,6 +43,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null)
       })
       .finally(() => setLoading(false))
+
+    return () => setUnauthorizedHandler(null)
   }, [])
 
   const login = useCallback(async (email: string, password: string) => {

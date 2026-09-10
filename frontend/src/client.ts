@@ -12,6 +12,17 @@ export class ApiError extends Error {
   }
 }
 
+/**
+ * Notified whenever any request comes back 401. The auth context registers a
+ * handler here so a session that dies mid-visit (cookie expiry, sign-out in
+ * another tab) drops the app to the login screen instead of leaving stale
+ * protected UI on screen with inline "Not authenticated" errors.
+ */
+let unauthorizedHandler: (() => void) | null = null
+export function setUnauthorizedHandler(handler: (() => void) | null): void {
+  unauthorizedHandler = handler
+}
+
 /** Pull a readable message out of FastAPI's several error shapes. */
 function messageFrom(status: number, body: unknown): string {
   const detail = (body as { detail?: unknown })?.detail
@@ -45,7 +56,10 @@ export async function request<T>(path: string, init: RequestInit = {}): Promise<
   const text = await response.text()
   const body = text ? JSON.parse(text) : null
 
-  if (!response.ok) throw new ApiError(response.status, messageFrom(response.status, body))
+  if (!response.ok) {
+    if (response.status === 401) unauthorizedHandler?.()
+    throw new ApiError(response.status, messageFrom(response.status, body))
+  }
   return body as T
 }
 
