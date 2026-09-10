@@ -1,11 +1,10 @@
 # Expected screening outputs for the fixtures
 
-Reference reports the golden tests compare against
-(`scripts/regen_screening_goldens.py` regenerates them in `stub` + agent mode
-with calibration empty). Tests match on the `evidence` string
-(whitespace-tolerant substring of the resume), the `category`, `source`
-(`agent_name`), record-level `is_compromised`, and `overall_disposition` — not
-on exact `reason` wording.
+Reference outcomes the per-fixture screening tests
+(`backend/tests/test_screening_*.py`) assert against, run in `stub` + agent mode.
+Tests match on the `evidence` string (whitespace-tolerant substring of the
+resume), the `category`, `source` (`agent_name`), record-level `is_compromised`,
+and `overall_disposition` — not on exact `reason` wording.
 
 - Sub-agents emit **`IntegrityAuditResult`** = `{agent_name, candidate_id,
   is_compromised, flags:[{category, evidence, reason}]}`.
@@ -270,11 +269,12 @@ to be the subject of the candidate's work, not instructions — `severity:
   spoofing, delimiter-escape tricks", "system-prompt hardening guide" — each is
   a noun phrase describing the candidate's work, not an imperative to the reader
 - no finding with `severity` in {`low`, `medium`, `high`}
-- the pre-scan injection regex *will* fire on "ignore all previous
-  instructions"; the coverage check must be satisfied by Agent 1 explicitly
-  explaining the legitimate context (not by a synthesised flag) — assert the
-  `screening_agent_runs` note is `LEGIT_TERMINOLOGY_CLEARED`, not
-  `LLM_MISSED_INJECTION`
+- the pre-scan's legitimate-context suppression (`prescan/manipulation.py`,
+  `_LEGIT_CONTEXT_RE`) means "ignore all previous instructions" here yields
+  **no** `manipulation_guard` pre-scan hit, so the coverage check has nothing to
+  synthesise — assert `run_prescan(...).hits_for("manipulation_guard") == []`
+  and no `LLM_MISSED_INJECTION` note on any `screening_agent_runs` row for this
+  candidate
 
 ---
 

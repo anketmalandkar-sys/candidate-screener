@@ -222,24 +222,31 @@ backend/
   app/
     main.py               # assembly: CORS + router mounts
     utilities/            # dependency-free helpers
-      config.py           #   env-driven settings
+      config.py           #   env-driven settings (auth + all SCREENING_/OPENAI_/HF_ vars)
       common.py           #   weight constants + utcnow
       extract.py          #   PDF/DOCX/TXT résumé extraction
     auth/                 # authentication: primitives + request guards
       security.py         #   Argon2, JWT, login throttle
-      dependencies.py     #   get_current_user, get_owned_role, get_owned_candidate
+      dependencies.py     #   get_current_user, get_owned_role/_candidate/_screening_run
     models/               # ORM entities, one per file
       base.py             #   the declarative Base
       user.py  role.py  requirement.py  candidate.py
+      screening.py        #   run / result / finding / agent-run / comparison
     schemas/              # pydantic DTOs
-      common.py  auth.py  role.py  candidate.py
+      common.py  auth.py  role.py  candidate.py  screening.py
     repositories/         # every SQLAlchemy query, keyed by aggregate
       database.py         #   engine / session / get_db
-      users.py  roles.py  candidates.py
+      users.py  roles.py  candidates.py  screening.py
     services/             # business logic + transaction boundary
-      auth.py  roles.py  candidates.py
+      auth.py  roles.py  candidates.py  screening.py
     routers/              # thin HTTP controllers
-      auth.py  roles.py  candidates.py
+      auth.py  roles.py  candidates.py  screening.py
+    screening/            # the multi-agent integrity pipeline — see docs/screening.md
+      coordinator.py      #   per-run orchestration (runs as a background task)
+      prescan/            #   deterministic, no-network detectors
+      providers/          #   stub + OpenAI-compatible + Hugging Face backends
+      agents/             #   prompts, tool-using detectors, synthesizer
+      verifier.py  assembly.py  jsonio.py
     seed/                 # demo-data tooling
       dataset.py  loader.py  __main__.py   # `python -m app.seed`
       ui_demo.py                           # `python -m app.seed.ui_demo` — pool + screening runs
@@ -247,9 +254,12 @@ backend/
 frontend/src/
   client.ts             # the shared fetch wrapper
   api.ts                # core endpoints, composed with candidates/api.ts
+  auth.tsx              # session context: AuthProvider / useAuth
   candidates/            # the candidate pool page, AddCandidate, types + api
-  components/            # RoleForm, RequirementRows
+  components/            # RoleForm, RequirementRows, Pagination
   pages/                # login, register, roles (management)
+  screening/            # Screening section: start, runs panel, run detail,
+                        #   candidate audit, agent-run table, compare, types + api
 samples/                # a role and eight résumés (scoring); read ROLE.md
   screening/            # 27 résumé PDFs, 9 finding scenarios × 3 (screening)
 ```

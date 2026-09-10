@@ -32,7 +32,8 @@ what it finds in language a recruiter can act on. See
   Statuses: `queued` -> `running` -> `complete` | `partial` | `failed`.
 - **Screening result** — the outcome for one candidate in one run. **Exactly one
   per selected candidate**, always (even on error). Statuses: `pending`,
-  `screened`, `error`, `skipped`.
+  `screened`, `error` (`skipped` is a reserved enum value the coordinator never
+  assigns).
 - **Finding** — one concern found in a résumé: a category, the exact **quoted
   evidence**, a plain-language **reason**, and (from Agent 4) a **severity**
   (`info` / `low` / `medium` / `high`), a **benign_explanation** (the most
@@ -41,8 +42,11 @@ what it finds in language a recruiter can act on. See
 - **Disposition** — the result's headline: `clear`, `review`, or `high_concern`,
   derived from the highest finding severity
   (`app/screening/assembly.py::disposition_for` is the single source of truth).
-- **is_compromised** — true when any manipulation of the screening process was
-  detected (prompt injection, spoofing, hidden payload). A flag, **not** a
+- **is_compromised** — true when the screening turned up **any** integrity
+  finding, whatever the category (`app/screening/assembly.py`: any sub-agent
+  flagged, or any merged finding exists). Manipulation of the screening process
+  itself — prompt injection, spoofing, hidden payload — is the strongest
+  trigger, but a timeline or inflation finding sets it too. A flag, **not** a
   rejection — the candidate is still fully screened and reported.
 - **The five agents**
   - **1 · manipulation_guard** — text aimed at an automated reader:
@@ -63,11 +67,14 @@ what it finds in language a recruiter can act on. See
   the test default), `openai_agentic` (default detection), `hf_inference`,
   `hf_local`, `openai` (synthesis). A backend that can't be built degrades to
   `stub`; the candidate is still screened.
-- **Calibration** — recruiter feedback (`accurate` / `false_positive` /
-  `severity_too_high` / `severity_too_low` / `missed`) aggregated per
-  `(recruiter, role, agent)` into a visible, reversible adjustment the next run
-  reads. It can only **lower** severity, **suppress** a pattern, or **add
-  examples** — never disable a category, and never touch manipulation findings.
+- **Calibration** *(designed, not yet built — see `.scratch/screening/spec.md`
+  §7 and issue `06-feedback-and-calibration.md`)* — recruiter feedback
+  (`accurate` / `false_positive` / `severity_too_high` / `severity_too_low` /
+  `missed`) aggregated per `(recruiter, role, agent)` into a visible, reversible
+  adjustment the next run reads. Intended to only **lower** severity,
+  **suppress** a pattern, or **add examples** — never disable a category, and
+  never touch manipulation findings. No feedback endpoint, table, or UI exists
+  today.
 - **Degraded** — a model call was attempted and failed, so that agent's
   contribution was assembled deterministically from the pre-scan. Distinct from
   **pre-scan mode**, where no model call was attempted at all.
